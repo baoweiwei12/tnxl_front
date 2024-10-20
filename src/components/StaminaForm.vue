@@ -1,21 +1,21 @@
 <template>
     <el-form :model="form" label-width="auto" :rules="rules" ref="fromRef" label-position="left">
-        <el-form-item label="用户" prop="user_id">
+        <el-form-item v-if="!props.isEdit" label="用户" prop="user_id">
             <el-select v-model="form.user_id" filterable remote reserve-keyword placeholder="输入姓名查询"
                 :remote-method="remoteMethod" :loading="loading" style="width: 240px">
                 <el-option v-for="user in users" :key="user.id" :label="`${user.full_name}`" :value="user.id" />
             </el-select>
         </el-form-item>
 
-
-
-
         <el-form-item label="体型" prop="body_type">
             <el-input v-model="form.body_type" placeholder="请输入体型" />
         </el-form-item>
 
         <el-form-item label="是否通过体型测试" prop="is_pass_body_type">
-            <el-switch v-model="form.is_pass_body_type" active-text="通过" inactive-text="未通过" />
+            <el-select v-model="form.is_pass_body_type" placeholder="请选择">
+                <el-option label="通过" :value="true" />
+                <el-option label="未通过" :value="false" />
+            </el-select>
         </el-form-item>
 
         <el-form-item label="3公里时间(秒)" prop="three_km_time">
@@ -23,7 +23,10 @@
         </el-form-item>
 
         <el-form-item label="是否通过3公里测试" prop="is_pass_three_km">
-            <el-switch v-model="form.is_pass_three_km" active-text="通过" inactive-text="未通过" />
+            <el-select v-model="form.is_pass_three_km" placeholder="请选择">
+                <el-option label="通过" :value="true" />
+                <el-option label="未通过" :value="false" />
+            </el-select>
         </el-form-item>
 
         <el-form-item label="单杠次数" prop="horizontal_bar_times">
@@ -31,7 +34,10 @@
         </el-form-item>
 
         <el-form-item label="是否通过单杠测试" prop="is_pass_horizontal_bar">
-            <el-switch v-model="form.is_pass_horizontal_bar" active-text="通过" inactive-text="未通过" />
+            <el-select v-model="form.is_pass_horizontal_bar" placeholder="请选择">
+                <el-option label="通过" :value="true" />
+                <el-option label="未通过" :value="false" />
+            </el-select>
         </el-form-item>
 
         <el-form-item label="仰卧起坐次数" prop="sit_ups_times">
@@ -39,7 +45,10 @@
         </el-form-item>
 
         <el-form-item label="是否通过仰卧起坐测试" prop="is_pass_sit_ups">
-            <el-switch v-model="form.is_pass_sit_ups" active-text="通过" inactive-text="未通过" />
+            <el-select v-model="form.is_pass_sit_ups" placeholder="请选择">
+                <el-option label="通过" :value="true" />
+                <el-option label="未通过" :value="false" />
+            </el-select>
         </el-form-item>
 
         <el-form-item label="蛇行跑时间(秒)" prop="serpentine_running_time">
@@ -47,11 +56,17 @@
         </el-form-item>
 
         <el-form-item label="是否通过蛇行跑测试" prop="is_pass_serpentine_running">
-            <el-switch v-model="form.is_pass_serpentine_running" active-text="通过" inactive-text="未通过" />
+            <el-select v-model="form.is_pass_serpentine_running" placeholder="请选择">
+                <el-option label="通过" :value="true" />
+                <el-option label="未通过" :value="false" />
+            </el-select>
         </el-form-item>
 
         <el-form-item label="是否通过双杠测试" prop="is_pass_parallel_bars">
-            <el-switch v-model="form.is_pass_parallel_bars" active-text="通过" inactive-text="未通过" />
+            <el-select v-model="form.is_pass_parallel_bars" placeholder="请选择">
+                <el-option label="通过" :value="true" />
+                <el-option label="未通过" :value="false" />
+            </el-select>
         </el-form-item>
 
         <el-form-item label="负重测试时间(秒)" prop="weight_test_time">
@@ -59,11 +74,17 @@
         </el-form-item>
 
         <el-form-item label="是否通过负重测试" prop="is_pass_weight_test">
-            <el-switch v-model="form.is_pass_weight_test" active-text="通过" inactive-text="未通过" />
+            <el-select v-model="form.is_pass_weight_test" placeholder="请选择">
+                <el-option label="通过" :value="true" />
+                <el-option label="未通过" :value="false" />
+            </el-select>
         </el-form-item>
 
         <el-form-item label="是否通过木马测试" prop="is_pass_wooden_horse">
-            <el-switch v-model="form.is_pass_wooden_horse" active-text="通过" inactive-text="未通过" />
+            <el-select v-model="form.is_pass_wooden_horse" placeholder="请选择">
+                <el-option label="通过" :value="true" />
+                <el-option label="未通过" :value="false" />
+            </el-select>
         </el-form-item>
 
         <el-form-item label="总水平" prop="level">
@@ -77,59 +98,67 @@
 
         <el-form-item>
             <el-button type="primary" @click="handleSubmit">提交</el-button>
-            <el-button @click="handleReset">重置</el-button>
+            <el-button v-if="!props.isEdit" @click="handleReset">重置</el-button>
         </el-form-item>
     </el-form>
 </template>
 
 <script setup>
-import { ref, defineProps, watch, defineEmits, onMounted } from 'vue';
+import { ref, defineProps, watch, defineEmits } from 'vue';
 import { searchUsers } from '@/api';
 
-const users = ref([])
+const users = ref([]);
+const loading = ref(false);
 const remoteMethod = async (keyword) => {
-    loading.value = true
-    const res = await searchUsers(keyword)
-    users.value = res.data
-    loading.value = false
+    loading.value = true;
+    const res = await searchUsers(keyword);
+    users.value = res.data;
+    loading.value = false;
 }
+
 const props = defineProps({
-    modelValue: {
+    initialData: {
         type: Object,
-        required: true,
+        default: () => ({}),
     },
+    isEdit: {
+        type: Boolean,
+        default: false,
+    }
 })
+
+
 
 const emit = defineEmits(['update:modelValue', 'submit'])
 
-const form = ref({ ...props.modelValue })
+const form = ref({});
 
 watch(
-    () => props.modelValue,
-    (newValue) => {
-        form.value = { ...newValue }
+    () => props.initialData,
+    (newData) => {
+        if (newData) {
+            form.value = { ...form.value, ...newData };
+        }
     },
-    { deep: true }
+    { immediate: true }
 )
 
-const fromRef = ref(null)
+const fromRef = ref(null);
 
 const handleSubmit = () => {
     fromRef.value.validate((valid) => {
         if (valid) {
-            emit('submit', form.value)
+            emit('submit', form.value);
         } else {
-            console.log('表单验证失败')
+            console.log('表单验证失败');
         }
-    })
-
+    });
 }
-const loading = ref(false)
 
 const handleReset = () => {
-    form.value = { ...props.modelValue }
-    fromRef.value.resetFields()
-    emit('update:modelValue', form.value)
+    form.value = { ...props.modelValue };
+    fromRef.value.resetFields();
+    emit('update:modelValue', form.value);
 }
 
 const rules = {

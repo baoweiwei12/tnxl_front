@@ -1,14 +1,11 @@
 <template>
-    <el-form :model="formData" :rules="rules" ref="userForm" label-width="120px">
+    <el-form :model="formData" :rules="rules" ref="userForm" label-width="auto" label-position="left">
         <!-- 用户名 -->
         <el-form-item label="用户名" prop="username">
             <el-input v-model="formData.username" placeholder="请输入用户名" />
         </el-form-item>
 
-        <!-- 密码 -->
-        <el-form-item label="密码" prop="password">
-            <el-input v-model="formData.password" placeholder="请输入密码" type="password" />
-        </el-form-item>
+
 
         <!-- 用户角色 -->
         <el-form-item label="用户角色" prop="role">
@@ -22,7 +19,10 @@
         <el-form-item label="姓名" prop="full_name">
             <el-input v-model="formData.full_name" placeholder="请输入姓名" />
         </el-form-item>
-
+        <!-- 密码 -->
+        <el-form-item label="密码" prop="password">
+            <el-input v-model="formData.password" placeholder="请输入密码" type="password" />
+        </el-form-item>
         <!-- 等级 -->
         <el-form-item label="等级" prop="level">
             <el-input v-model="formData.level" placeholder="请输入等级" />

@@ -73,3 +73,5 @@ export const editGroup = (id, data) => apiClient.put(`/v1/groups/${id}`, data)
 export const addStaminaInfo = (data) => apiClient.post("/v1/stamina_info", data)
 
 export const getStaminaInfo = (params) => apiClient.get("/v1/stamina_info", { params })
+
+export const editStaminaInfoByUserId = (user_id, data) => apiClient.put(`/v1/stamina_info/users/${user_id}`, data)

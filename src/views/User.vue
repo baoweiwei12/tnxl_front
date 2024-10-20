@@ -113,10 +113,10 @@ const handleSizeChange = async (size) => {
 }
 </script>
 <template>
-    <el-dialog v-model="addUserDialogVisible" title="新增用户" width="50%">
+    <el-dialog v-model="addUserDialogVisible" title="新增用户" width="50%" align-center>
         <UserForm @submit="handleCreateSubmit"></UserForm>
     </el-dialog>
-    <el-dialog v-model="editUserDialogVisible" title="新增用户" width="50%">
+    <el-dialog v-model="editUserDialogVisible" title="修改用户信息" width="50%" align-center>
         <UserForm :initial-data="currentUser" @submit="handleEditSubmit"></UserForm>
     </el-dialog>
 
