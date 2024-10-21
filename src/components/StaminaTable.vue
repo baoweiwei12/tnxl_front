@@ -77,11 +77,6 @@
                 </template>
             </el-table-column>
         </el-table>
-
-        <el-pagination size="small" style="margin-top: 10px;" v-if="total > 0" :current-page="pagination.currentPage"
-            :page-size="pagination.pageSize" :total="total" @current-change="handlePageChange"
-            layout="total, prev, pager, next, jumper, sizes" :page-sizes="pagination.pageSizes"
-            @size-change="handleSizeChange" />
     </div>
 
 </template>

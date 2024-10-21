@@ -15,7 +15,7 @@
                 <el-header>
                     <el-tag type="primary">{{
                         userMe == null ? "未登录" : userMe.username
-                    }}</el-tag>
+                        }}</el-tag>
                     <el-dropdown>
                         <el-icon style="height: 100%; margin-left: 10px; margin-right: 20px">
                             <Tools />
@@ -79,7 +79,17 @@ const menu = ref([
     {
         text: "体能信息",
         icon: School,
-        path: "/Stamina",
+        path: "/stamina",
+        role: ["admin", "group_admin"],
+    }, {
+        text: "专业信息",
+        icon: School,
+        path: "/major",
+        role: ["admin", "group_admin"],
+    }, {
+        text: "双一信息",
+        icon: School,
+        path: "/shuangyi",
         role: ["admin", "group_admin"],
     }
 ]);

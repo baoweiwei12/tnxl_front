@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 import Group from "@/views/Group.vue";
 import Stamina from "@/views/Stamina.vue";
-
+import Major from "@/views/Major.vue";
+import ShuangYi from "@/views/ShuangYi.vue";
 const routes = [
 
   {
@@ -27,6 +28,14 @@ const routes = [
     path: "/stamina",
     name: "体能信息",
     component: Stamina,
+  }, {
+    path: "/major",
+    name: "专业信息",
+    component: Major,
+  }, {
+    path: "/shuangyi",
+    name: "双一信息",
+    component: ShuangYi,
   }
 ];
 

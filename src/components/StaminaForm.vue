@@ -129,7 +129,7 @@ const props = defineProps({
 
 
 
-const emit = defineEmits(['update:modelValue', 'submit'])
+const emit = defineEmits(['submit'])
 
 const form = ref({});
 
@@ -156,9 +156,8 @@ const handleSubmit = () => {
 }
 
 const handleReset = () => {
-    form.value = { ...props.modelValue };
+    form.value = {};
     fromRef.value.resetFields();
-    emit('update:modelValue', form.value);
 }
 
 const rules = {

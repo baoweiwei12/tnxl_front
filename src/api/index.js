@@ -75,3 +75,15 @@ export const addStaminaInfo = (data) => apiClient.post("/v1/stamina_info", data)
 export const getStaminaInfo = (params) => apiClient.get("/v1/stamina_info", { params })
 
 export const editStaminaInfoByUserId = (user_id, data) => apiClient.put(`/v1/stamina_info/users/${user_id}`, data)
+
+export const getMajorInfo = (params) => apiClient.get("/v1/major_info", { params })
+
+export const addMajorInfo = (data) => apiClient.post("/v1/major_info", data)
+
+export const editMajorInfoByUserId = (user_id, data) => apiClient.put(`/v1/major_info/users/${user_id}`, data)
+
+export const getShuangYiInfo = (data) => apiClient.post("/v1/shuang_yi_info/search", data)
+
+export const addShuangYiInfo = (data) => apiClient.post("/v1/shuang_yi_info", data)
+
+export const editShuangYiInfoByUserId = (user_id, data) => apiClient.put(`/v1/shuang_yi_info/users/${user_id}`, data)
