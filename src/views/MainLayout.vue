@@ -57,12 +57,12 @@ const menu = ref([
         text: "首页",
         icon: House,
         path: "/",
-        role: ["product_admin", "school_admin"],
+        role: ["admin", "group_admin"],
     }, {
-        text: "test",
+        text: "体能训练",
         icon: User,
-        path: "/test",
-        role: ["admin"],
+        path: "/StaminaPlan",
+        role: ["admin", "group_admin"],
     },
     {
         text: "用户管理",

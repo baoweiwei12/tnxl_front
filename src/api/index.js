@@ -87,3 +87,46 @@ export const getShuangYiInfo = (data) => apiClient.post("/v1/shuang_yi_info/sear
 export const addShuangYiInfo = (data) => apiClient.post("/v1/shuang_yi_info", data)
 
 export const editShuangYiInfoByUserId = (user_id, data) => apiClient.put(`/v1/shuang_yi_info/users/${user_id}`, data)
+
+export const getStaminPlanWeekly = (params) => apiClient.get("/v1/stamin_plans/weekly", { params })
+
+export const addStaminPlanWeekly = (user_id, year, month, week) => {
+    let data = {
+        year: year,
+        month: month,
+        week: week,
+        plan: [
+            [], [], [], [], [], [], []
+        ],
+        user_id: user_id
+    }
+    return apiClient.post("/v1/stamin_plans/weekly", data)
+}
+
+
+
+export const editStaminPlanWeekly = (id, data) => apiClient.put(`/v1/stamin_plans/weekly/${id}`, data)
+
+export const deleteStaminPlanWeekly = (id) => apiClient.delete(`/v1/stamin_plans/weekly/${id}`)
+
+
+
+
+
+export const getStaminPlanMonthly = (params) => apiClient.get("/v1/stamin_plans/monthly", { params })
+
+export const addStaminPlanMonthly = (user_id, year, month) => {
+    let data = {
+        year: year,
+        month: month,
+        plan: [
+            [], [], [], []
+        ],
+        user_id: user_id
+    }
+    return apiClient.post("/v1/stamin_plans/monthly", data)
+}
+
+export const editStaminPlanMonthly = (id, data) => apiClient.put(`/v1/stamin_plans/monthly/${id}`, data)
+
+export const deleteStaminPlanMonthly = (id) => apiClient.delete(`/v1/stamin_plans/monthly/${id}`)

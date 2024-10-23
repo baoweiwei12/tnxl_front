@@ -3,6 +3,7 @@ import Group from "@/views/Group.vue";
 import Stamina from "@/views/Stamina.vue";
 import Major from "@/views/Major.vue";
 import ShuangYi from "@/views/ShuangYi.vue";
+import StaminaPlan from "@/views/StaminaPlan.vue";
 const routes = [
 
   {
@@ -11,9 +12,9 @@ const routes = [
     component: () => import("../views/Login.vue"),
   },
   {
-    path: "/test",
-    name: "test",
-    component: () => import("../views/test.vue"),
+    path: "/StaminaPlan",
+    name: "体能训练",
+    component: StaminaPlan,
   },
   {
     path: "/user",
