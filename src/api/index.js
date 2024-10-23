@@ -130,3 +130,21 @@ export const addStaminPlanMonthly = (user_id, year, month) => {
 export const editStaminPlanMonthly = (id, data) => apiClient.put(`/v1/stamin_plans/monthly/${id}`, data)
 
 export const deleteStaminPlanMonthly = (id) => apiClient.delete(`/v1/stamin_plans/monthly/${id}`)
+
+
+export const getStaminPlanYearly = (params) => apiClient.get("/v1/stamin_plans/yearly", { params })
+
+export const addStaminPlanYearly = (user_id, year) => {
+    let data = {
+        year: year,
+        plan: [
+            [], [], [], [], [], [], [], [], [], [], [], []
+        ],
+        user_id: user_id
+    }
+    return apiClient.post("/v1/stamin_plans/yearly", data)
+}
+
+export const editStaminPlanYearly = (id, data) => apiClient.put(`/v1/stamin_plans/yearly/${id}`, data)
+
+export const deleteStaminPlanYearly = (id) => apiClient.delete(`/v1/stamin_plans/yearly/${id}`)

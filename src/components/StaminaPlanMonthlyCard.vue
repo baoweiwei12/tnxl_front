@@ -1,23 +1,16 @@
 <template>
     <div style="text-align: center;margin-bottom: 10px;font-size: larger;">
-        <span>{{ `${planData.full_name} ${planData.year}年${planData.month}月第${planData.week}周体能训练计划` }}</span>
+        <span>{{ `${planData.full_name} ${planData.year}年${planData.month}月月度体能训练计划` }}</span>
     </div>
     <el-button style="margin-bottom: 10px;" type="primary" @click="handleSave" :disabled="buttonDisabled">保存</el-button>
     <div style="display: flex;flex-wrap: wrap;gap: 10px;">
         <el-card v-for="(dayPlan, index) in planData.plan" style="max-width: 500px">
             <template #header>
                 <div class="card-header">
-                    <span>第{{ index + 1 }}天</span>
+                    <span>第{{ index + 1 }}周</span>
                 </div>
             </template>
             <el-table :data="dayPlan" size="small" :span-method="objectSpanMethod" style="width: 100%; ">
-                <el-table-column label="训练时段" prop="time" width="110">
-                    <template #default="scope">
-                        <el-select size="small" v-model="scope.row.time" placeholder="请选择训练时段">
-                            <el-option v-for="item in ['午训练', '晚训练']" :key="item" :label="item" :value="item" />
-                        </el-select>
-                    </template>
-                </el-table-column>
                 <el-table-column label="科目" prop="subject" width="110">
                     <template #default="scope">
                         <el-select size="small" v-model="scope.row.subject" placeholder="请选择训练科目">
@@ -54,7 +47,7 @@
 <script setup>
 import { Delete } from '@element-plus/icons-vue'
 import { ref, defineProps, toRef, reactive } from 'vue'
-import { editStaminPlanWeekly } from '@/api';
+import { editStaminPlanMonthly } from '@/api';
 import { ElMessage } from 'element-plus';
 const props = defineProps({
     data: {
@@ -70,7 +63,6 @@ const planData = toRef(props, 'data')
 const currentPlanIndex = ref(null)
 const handleAdd = (index) => {
     planData.value.plan[index].push({
-        time: null,
         subject: null,
         plan_time: null,
         actual_time: null,
@@ -80,7 +72,7 @@ const buttonDisabled = ref(false)
 const handleSave = async () => {
     try {
         buttonDisabled.value = true
-        await editStaminPlanWeekly(planData.value.id, planData.value)
+        await editStaminPlanMonthly(planData.value.id, planData.value)
         ElMessage.success("修改成功")
     } catch (error) {
         console.error(error)

@@ -6,33 +6,33 @@
             <el-option v-for="item in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" :key="item" :label="`${item}月`"
                 :value="item" />
         </el-select>
-        <el-select v-model="queryWeek" placeholder="请选择周数" style="width: 150px;" clearable>
-            <el-option v-for="item in [1, 2, 3, 4]" :key="item" :label="`第${item}周`" :value="item" />
-        </el-select>
+
         <el-button @click="fetchPlans" style="width: 100px;">搜索</el-button>
-        <el-button @click="addStaminPlanWeeklyDialogVisible = true" style="width: 100px;">添加周计划</el-button>
+        <el-button @click="addStaminPlanDialogVisible = true" style="width: 100px;">添加月计划</el-button>
     </div>
 
 
-    <StaminaPlanWeeklyTable :data="data" :loading="loading" @edit="handleEdit" @delete="handleDelete">
-    </StaminaPlanWeeklyTable>
-    <el-dialog title="添加周计划" v-model="addStaminPlanWeeklyDialogVisible">
-        <StaminaPlanWeeklyAddForm @submit="handleAddStaminPlanWeeklySubmit" />
+    <StaminaPlanMonthlyTable :data="data" :loading="loading" @edit="handleEdit" @delete="handleDelete">
+    </StaminaPlanMonthlyTable>
+    <el-dialog title="添加周计划" v-model="addStaminPlanDialogVisible">
+        <StaminaPlanMonthlyAddForm @submit="handleAddStaminPlanSubmit" />
     </el-dialog>
 
     <el-dialog fullscreen v-model="editDialogVisible">
-        <StaminaPlanWeeklyCard :data="currentPlan"></StaminaPlanWeeklyCard>
+        <StaminaPlanMonthlyCard :data="currentPlan">
+        </StaminaPlanMonthlyCard>
     </el-dialog>
 </template>
 <script setup>
 import { ref } from 'vue'
-import { getStaminPlanWeekly, addStaminPlanWeekly, deleteStaminPlanWeekly } from '@/api';
-import StaminaPlanWeeklyAddForm from '@/components/StaminaPlanWeeklyAddForm.vue';
-import StaminaPlanWeeklyTable from '@/components/StaminaPlanWeeklyTable.vue';
-import { ElMessage } from 'element-plus';
-import StaminaPlanWeeklyCard from '@/components/StaminaPlanWeeklyCard.vue';
-const addStaminPlanWeeklyDialogVisible = ref(false)
+import { getStaminPlanMonthly, addStaminPlanMonthly, deleteStaminPlanMonthly } from '@/api';
 
+import StaminaPlanMonthlyAddForm from './StaminaPlanMonthlyAddForm.vue';
+import StaminaPlanMonthlyCard from './StaminaPlanMonthlyCard.vue';
+import StaminaPlanMonthlyTable from './StaminaPlanMonthlyTable.vue';
+import { ElMessage } from 'element-plus';
+
+const addStaminPlanDialogVisible = ref(false)
 
 // 获取当前年份和月份
 const currentYear = new Date().getFullYear();
@@ -42,14 +42,13 @@ const currentMonth = new Date().getMonth() + 1;
 const queryFullName = ref(null)
 const queryYear = ref(currentYear)
 const queryMonth = ref(currentMonth)
-const queryWeek = ref(null)
-const handleAddStaminPlanWeeklySubmit = async (form) => {
+const handleAddStaminPlanSubmit = async (form) => {
     try {
         let { user_id, year, month, week } = form
-        await addStaminPlanWeekly(user_id, year, month, week)
+        await addStaminPlanMonthly(user_id, year, month, week)
         await fetchPlans()
         ElMessage.success('添加成功')
-        addStaminPlanWeeklyDialogVisible.value = false
+        addStaminPlanDialogVisible.value = false
     } catch (error) {
 
     }
@@ -60,11 +59,10 @@ const loading = ref(false)
 const fetchPlans = async () => {
     try {
         loading.value = true
-        const resp = await getStaminPlanWeekly({
+        const resp = await getStaminPlanMonthly({
             full_name: queryFullName.value || null,
             year: queryYear.value || null,
             month: queryMonth.value || null,
-            week: queryWeek.value || null
         })
         data.value = resp.data
 
@@ -86,7 +84,7 @@ const handleEdit = (row) => {
 
 const handleDelete = async (row) => {
     try {
-        await deleteStaminPlanWeekly(row.id)
+        await deleteStaminPlanMonthly(row.id)
         data.value = data.value.filter(item => item.id !== row.id)
         ElMessage.success('删除成功')
     } catch (error) {
