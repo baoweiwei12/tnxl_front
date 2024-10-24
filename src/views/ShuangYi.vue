@@ -8,10 +8,11 @@
     </el-dialog>
 
     <div style="margin-bottom: 10px;">
-        <el-input v-model="searchFullName" placeholder="搜索姓名" style="width: 150px;margin-right: 10px;"></el-input>
-        <el-select v-model="searchMajorList" multiple collapse-tags placeholder="选择已掌握专业" style="width: 240px"
-            clearable>
-            <el-option v-for="option in options" :key="option.value" :label="option.lable" :value="option.value" />
+        <el-input v-model="searchFullName" placeholder="搜索姓名" style="width: 150px;margin-right: 10px;"
+            clearable></el-input>
+        <el-select v-model="searchMajorList" multiple collapse-tags placeholder="选择已掌握专业"
+            style="width: 240px;margin-right: 10px;" clearable>
+            <el-option v-for="option in options" :key="option" :label="option" :value="option" />
         </el-select>
         <el-select v-model="searchLevel" placeholder="请选择水平" style="width: 150px;margin-right: 10px;" clearable>
             <el-option v-for="(item, index) in levelLbale" :key="index" :label="item" :value="index">
@@ -66,7 +67,7 @@ const fetchShuangYiInfo = async () => {
             page: pagination.value.currentPage,
             page_size: pagination.value.pageSize,
             full_name: searchFullName.value || null,
-            level: searchLevel.value || null,
+            level: searchLevel.value,
             major_list: searchMajorList.value || []
         })
         data.value = resp.data.shuang_yi_info
@@ -80,14 +81,7 @@ const fetchShuangYiInfo = async () => {
     }
 }
 
-const options = [
-    { lable: '专业1', value: 'a' },
-    { lable: '专业2', value: 'b' },
-    { lable: '专业3', value: 'c' },
-    { lable: '专业4', value: 'd' },
-    { lable: '专业5', value: 'e' },
-    { lable: '专业6', value: 'f' },
-]
+const options = ['专业1', '专业2', '专业3', '专业4']
 const levelLbale = ['无专业', '单专业', '双专业', '三专业', '四专业']
 const pagination = ref({
     currentPage: 1,

@@ -15,7 +15,7 @@
                 <el-header>
                     <el-tag type="primary">{{
                         userMe == null ? "未登录" : userMe.username
-                        }}</el-tag>
+                    }}</el-tag>
                     <el-dropdown>
                         <el-icon style="height: 100%; margin-left: 10px; margin-right: 20px">
                             <Tools />
@@ -57,12 +57,7 @@ const menu = ref([
         text: "首页",
         icon: House,
         path: "/",
-        role: ["admin", "group_admin"],
-    }, {
-        text: "体能训练",
-        icon: User,
-        path: "/StaminaPlan",
-        role: ["admin", "group_admin"],
+        role: ["admin", "group_admin", "user"],
     },
     {
         text: "用户管理",
@@ -91,7 +86,39 @@ const menu = ref([
         icon: School,
         path: "/shuangyi",
         role: ["admin", "group_admin"],
-    }
+    }, {
+        text: "体能训练",
+        icon: User,
+        path: "/StaminaPlan",
+        role: ["admin", "group_admin"],
+    }, {
+        text: "专业训练",
+        icon: User,
+        path: "/MajorPlan",
+        role: ["admin", "group_admin"],
+    }, {
+        text: "双一训练",
+        icon: User,
+        path: "/ShuangYiPlan",
+        role: ["admin", "group_admin"],
+    }, {
+        text: "我的专业训练",
+        icon: User,
+        path: "/MyMajorPlan",
+        role: ["admin", "group_admin", "user"],
+    },
+    {
+        text: "我的双一训练",
+        icon: User,
+        path: "/MyShuangYiPlan",
+        role: ["admin", "group_admin", "user"],
+    },
+    {
+        text: "我的体能训练",
+        icon: User,
+        path: "/MyStaminaPlan",
+        role: ["admin", "group_admin", "user"],
+    },
 ]);
 
 const userMe = ref({});

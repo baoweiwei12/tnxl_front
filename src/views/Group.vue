@@ -1,17 +1,17 @@
 <template>
 
     <el-button @click="addGroupDialogVisible = true" style="margin-bottom:10px ;">新增群组</el-button>
+    <div style="width: 360px;"> <el-table v-loading="tableLoading" :data="groupData" size="small" border>
+            <el-table-column prop="id" label="群组ID" width="120" />
+            <el-table-column prop="name" label="群组名" width="120" />
 
-    <el-table v-loading="tableLoading" :data="groupData" size="small" border>
-        <el-table-column prop="id" label="群组ID" width="120" />
-        <el-table-column prop="name" label="群组名" width="120" />
-
-        <el-table-column label="操作">
-            <template #default="scope">
-                <el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>
-            </template>
-        </el-table-column>
-    </el-table>
+            <el-table-column label="操作" width="120">
+                <template #default="scope">
+                    <el-button size="small" @click="handleEdit(scope.row)">编辑</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+    </div>
 
 
 

@@ -25,12 +25,12 @@
     </el-dialog>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { getStaminPlanWeekly, addStaminPlanWeekly, deleteStaminPlanWeekly } from '@/api';
-import StaminaPlanWeeklyAddForm from '@/components/StaminaPlanWeeklyAddForm.vue';
-import StaminaPlanWeeklyTable from '@/components/StaminaPlanWeeklyTable.vue';
+import StaminaPlanWeeklyAddForm from './StaminaPlanWeeklyAddForm.vue';
+import StaminaPlanWeeklyTable from './StaminaPlanWeeklyTable.vue';
 import { ElMessage } from 'element-plus';
-import StaminaPlanWeeklyCard from '@/components/StaminaPlanWeeklyCard.vue';
+import StaminaPlanWeeklyCard from './StaminaPlanWeeklyCard.vue';
 const addStaminPlanWeeklyDialogVisible = ref(false)
 
 
@@ -93,4 +93,8 @@ const handleDelete = async (row) => {
         console.error(error)
     }
 }
+
+onMounted(() => {
+    fetchPlans()
+})
 </script>

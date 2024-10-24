@@ -5,7 +5,7 @@
             <template #default="scope">
                 <el-tag style="margin-right: 2px;" v-for="(item, index) in scope.row.major_list" :key="index"
                     type="primary" size="mini">{{
-                        options.find(element => element.value === item).lable }}</el-tag>
+                    item }}</el-tag>
             </template>
         </el-table-column>
         <el-table-column prop="level" label="双一水平" width="180">
@@ -32,14 +32,6 @@ const props = defineProps({
     }
 })
 
-const options = [
-    { lable: '专业1', value: 'a' },
-    { lable: '专业2', value: 'b' },
-    { lable: '专业3', value: 'c' },
-    { lable: '专业4', value: 'd' },
-    { lable: '专业5', value: 'e' },
-    { lable: '专业6', value: 'f' },
-]
 
 const levelLbale = ['无专业', '单专业', '双专业', '三专业', '四专业']
 

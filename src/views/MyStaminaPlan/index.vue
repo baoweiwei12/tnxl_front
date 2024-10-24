@@ -13,9 +13,9 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import StaminaPlanWeekly from '@/components/StaminaPlanWeekly.vue';
-import StaminaPlanMonthly from '@/components/StaminaPlanMonthly.vue';
-import StaminaPlanYearly from '@/components/StaminaPlanYearly.vue';
+import StaminaPlanWeekly from './components/StaminaPlanWeekly.vue';
+import StaminaPlanMonthly from './components/StaminaPlanMonthly.vue';
+import StaminaPlanYearly from './components/StaminaPlanYearly.vue';
 
 const activeName = ref('weekly')
 

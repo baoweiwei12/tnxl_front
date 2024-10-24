@@ -148,3 +148,143 @@ export const addStaminPlanYearly = (user_id, year) => {
 export const editStaminPlanYearly = (id, data) => apiClient.put(`/v1/stamin_plans/yearly/${id}`, data)
 
 export const deleteStaminPlanYearly = (id) => apiClient.delete(`/v1/stamin_plans/yearly/${id}`)
+
+
+export const getMajorPlanWeekly = (params) => apiClient.get("/v1/major_plans/weekly", { params })
+
+export const addMajorPlanWeekly = (user_id, year, month, week) => {
+    let data = {
+        year: year,
+        month: month,
+        week: week,
+        plan: [
+            [], [], [], [], [], [], []
+        ],
+        user_id: user_id
+    }
+    return apiClient.post("/v1/major_plans/weekly", data)
+}
+
+
+
+export const editMajorPlanWeekly = (id, data) => apiClient.put(`/v1/major_plans/weekly/${id}`, data)
+
+export const deleteMajorPlanWeekly = (id) => apiClient.delete(`/v1/major_plans/weekly/${id}`)
+
+
+
+
+
+export const getMajorPlanMonthly = (params) => apiClient.get("/v1/major_plans/monthly", { params })
+
+export const addMajorPlanMonthly = (user_id, year, month) => {
+    let data = {
+        year: year,
+        month: month,
+        plan: [
+            [], [], [], []
+        ],
+        user_id: user_id
+    }
+    return apiClient.post("/v1/major_plans/monthly", data)
+}
+
+export const editMajorPlanMonthly = (id, data) => apiClient.put(`/v1/major_plans/monthly/${id}`, data)
+
+export const deleteMajorPlanMonthly = (id) => apiClient.delete(`/v1/major_plans/monthly/${id}`)
+
+
+export const getMajorPlanYearly = (params) => apiClient.get("/v1/major_plans/yearly", { params })
+
+export const addMajorPlanYearly = (user_id, year) => {
+    let data = {
+        year: year,
+        plan: [
+            [], [], [], [], [], [], [], [], [], [], [], []
+        ],
+        user_id: user_id
+    }
+    return apiClient.post("/v1/major_plans/yearly", data)
+}
+
+export const editMajorPlanYearly = (id, data) => apiClient.put(`/v1/major_plans/yearly/${id}`, data)
+
+export const deleteMajorPlanYearly = (id) => apiClient.delete(`/v1/major_plans/yearly/${id}`)
+
+
+export const getShuangYiPlanWeekly = (params) => apiClient.get("/v1/shuang_yi_plans/weekly", { params })
+
+export const addShuangYiPlanWeekly = (user_id, year, month, week) => {
+    let data = {
+        year: year,
+        month: month,
+        week: week,
+        plan: [
+            [], [], [], [], [], [], []
+        ],
+        user_id: user_id
+    }
+    return apiClient.post("/v1/shuang_yi_plans/weekly", data)
+}
+
+
+
+export const editShuangYiPlanWeekly = (id, data) => apiClient.put(`/v1/shuang_yi_plans/weekly/${id}`, data)
+
+export const deleteShuangYiPlanWeekly = (id) => apiClient.delete(`/v1/shuang_yi_plans/weekly/${id}`)
+
+
+
+
+
+export const getShuangYiPlanMonthly = (params) => apiClient.get("/v1/shuang_yi_plans/monthly", { params })
+
+export const addShuangYiPlanMonthly = (user_id, year, month) => {
+    let data = {
+        year: year,
+        month: month,
+        plan: [
+            [], [], [], []
+        ],
+        user_id: user_id
+    }
+    return apiClient.post("/v1/shuang_yi_plans/monthly", data)
+}
+
+export const editShuangYiPlanMonthly = (id, data) => apiClient.put(`/v1/shuang_yi_plans/monthly/${id}`, data)
+
+export const deleteShuangYiPlanMonthly = (id) => apiClient.delete(`/v1/shuang_yi_plans/monthly/${id}`)
+
+
+export const getShuangYiPlanYearly = (params) => apiClient.get("/v1/shuang_yi_plans/yearly", { params })
+
+export const addShuangYiPlanYearly = (user_id, year) => {
+    let data = {
+        year: year,
+        plan: [
+            [], [], [], [], [], [], [], [], [], [], [], []
+        ],
+        user_id: user_id
+    }
+    return apiClient.post("/v1/shuang_yi_plans/yearly", data)
+}
+
+export const editShuangYiPlanYearly = (id, data) => apiClient.put(`/v1/shuang_yi_plans/yearly/${id}`, data)
+
+export const deleteShuangYiPlanYearly = (id) => apiClient.delete(`/v1/shuang_yi_plans/yearly/${id}`)
+
+export const getMyStaminInfo = () => apiClient.get("/v1/my/stamina_info")
+export const getMyMajorInfo = () => apiClient.get("/v1/my/major_info")
+
+export const getMyShuangYiInfo = () => apiClient.get("/v1/my/shuang_yi_info")
+
+export const getMyStaminaPlanWeekly = (params) => apiClient.get("/v1/my/stamin_plans/weekly", { params })
+export const getMyStaminaPlanMonthly = (params) => apiClient.get("/v1/my/stamin_plans/monthly", { params })
+export const getMyStaminaPlanYearly = (params) => apiClient.get("/v1/my/stamin_plans/yearly", { params })
+
+export const getMyMajorPlanWeekly = (params) => apiClient.get("/v1/my/major_plans/weekly", { params })
+export const getMyMajorPlanMonthly = (params) => apiClient.get("/v1/my/major_plans/monthly", { params })
+export const getMyMajorPlanYearly = (params) => apiClient.get("/v1/my/major_plans/yearly", { params })
+export const getMyShuangYiPlanWeekly = (params) => apiClient.get("/v1/my/shuang_yi_plans/weekly", { params })
+export const getMyShuangYiPlanMonthly = (params) => apiClient.get("/v1/my/shuang_yi_plans/monthly", { params })
+export const getMyShuangYiPlanYearly = (params) => apiClient.get("/v1/my/shuang_yi_plans/yearly", { params })
