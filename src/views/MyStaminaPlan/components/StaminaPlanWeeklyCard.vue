@@ -11,11 +11,22 @@
                 </div>
             </template>
             <el-table :data="dayPlan" size="small" :span-method="objectSpanMethod" style="width: 100%; ">
-                <el-table-column label="科目" prop="subject" width="110">
+                <el-table-column label="时段" prop="time" width="100">
                 </el-table-column>
-                <el-table-column label="计划时间" prop="plan_time" width="65">
+                <el-table-column label="训/考" prop="training_or_examination" width="80">
+
                 </el-table-column>
-                <el-table-column label="实训时间" type="number" prop="actual_time" width="65">
+                <el-table-column label="科目" prop="subject" width="90">
+
+                </el-table-column>
+                <el-table-column label="计划组数" prop="plan_time" width="65">
+
+                </el-table-column>
+                <el-table-column label="实训组数" type="number" prop="actual_time" width="65">
+
+                </el-table-column>
+                <el-table-column label="分数" type="number" prop="score" width="80">
+
                 </el-table-column>
             </el-table>
 

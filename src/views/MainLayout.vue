@@ -72,6 +72,12 @@ const menu = ref([
         role: ["admin"],
     },
     {
+        text: "科目维护",
+        icon: School,
+        path: "/subject",
+        role: ["admin"],
+    },
+    {
         text: "体能信息",
         icon: School,
         path: "/stamina",
@@ -118,7 +124,7 @@ const menu = ref([
         icon: User,
         path: "/MyStaminaPlan",
         role: ["admin", "group_admin", "user"],
-    },
+    }
 ]);
 
 const userMe = ref({});

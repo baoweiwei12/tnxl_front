@@ -10,6 +10,7 @@ import Home from "@/views/Home/index.vue";
 import MyMajorPlan from "@/views/MyMajorPlan/index.vue";
 import MyShuangYiPlan from "@/views/MyShuangYiPlan/index.vue";
 import MyStaminaPlan from "@/views/MyStaminaPlan/index.vue";
+import Subject from "@/views/Subject/index.vue";
 const routes = [
   {
     path: "/",
@@ -28,6 +29,11 @@ const routes = [
     path: "/user",
     name: "用户管理",
     component: () => import("../views/User.vue"),
+  },
+  {
+    path: "/subject",
+    name: "科目维护",
+    component: Subject,
   },
   {
     path: "/group",
