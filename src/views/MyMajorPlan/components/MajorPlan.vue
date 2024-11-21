@@ -13,12 +13,11 @@ import SearchBox from './SearchBox.vue'
 import DataTable from './DataTable.vue'
 import Pagination from '../../../components/Pagination.vue'
 import DrawerForm from './DrawerForm.vue'
-import { getStaminaPlans, addStaminaPlan, editStaminaPlan, deleteStaminaPlan } from '@/api';
+import { getMajorPlans, addMajorPlan, editMajorPlan, deleteMajorPlan } from '@/api';
 import { ElMessage } from 'element-plus'
-
-
+import { userStorage } from '@/storage'
+const user = userStorage.get()
 const queryParams = ref({
-    full_name: null,
     start_date: null,
     end_date: null
 })
@@ -36,18 +35,19 @@ const form = ref({})
 
 const isEdit = ref(false)
 onMounted(() => {
-    fetchStaminaPlans()
+    fetchMajorPlans()
 })
 const handleSearch = async (params) => {
-    fetchStaminaPlans()
+    fetchMajorPlans()
 }
 
-const fetchStaminaPlans = async () => {
+const fetchMajorPlans = async () => {
     try {
         loading.value = true
-        const resp = await getStaminaPlans({
+        const resp = await getMajorPlans({
             page: pagination.value.currentPage,
             per_page: pagination.value.pageSize,
+            user_id: user.id,
             ...queryParams.value
         })
         data.value = resp.data.data
@@ -60,11 +60,11 @@ const fetchStaminaPlans = async () => {
 }
 
 const handlePageChange = async (page) => {
-    fetchStaminaPlans()
+    fetchMajorPlans()
 }
 
 const handleSizeChange = async (size) => {
-    fetchStaminaPlans()
+    fetchMajorPlans()
 }
 
 const openAddDrawer = () => {
@@ -86,12 +86,12 @@ const handleCloseDrawer = () => {
 const handleSubmit = async () => {
     try {
         if (isEdit.value) {
-            await editStaminaPlan(form.value.id, form.value)
+            await editMajorPlan(form.value.id, form.value)
         } else {
-            await addStaminaPlan(form.value)
+            await addMajorPlan(form.value)
         }
         ElMessage.success('提交成功')
-        fetchStaminaPlans()
+        fetchMajorPlans()
         handleCloseDrawer()
     } catch (error) {
         console.error('提交失败', error)
@@ -101,9 +101,9 @@ const handleSubmit = async () => {
 
 const handleDelete = async (row) => {
     try {
-        await deleteStaminaPlan(row.id)
+        await deleteMajorPlan(row.id)
         ElMessage.success('成功')
-        fetchStaminaPlans()
+        fetchMajorPlans()
     } catch (error) {
         console.error('删除失败', error)
         ElMessage.error('删除失败')

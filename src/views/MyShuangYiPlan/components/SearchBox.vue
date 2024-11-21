@@ -1,12 +1,11 @@
 <template>
     <div class="query-box">
-        <el-input v-model="props.queryParams.full_name" placeholder="姓名" style="width: 120px" clearable></el-input>
+
         <el-date-picker v-model="props.queryParams.start_date" type="date" placeholder="开始日期" :shortcuts="shortcuts"
             value-format="YYYY-MM-DD" clearable style="width: 120px" />
         <el-date-picker v-model="props.queryParams.end_date" type="date" placeholder="结束日期" :shortcuts="shortcuts"
             value-format="YYYY-MM-DD" clearable style="width: 120px" />
         <el-button @click="handleSearch">搜索</el-button>
-        <el-button @click="openAddDrawer" style="margin-left: 0px;">新增</el-button>
     </div>
 </template>
 

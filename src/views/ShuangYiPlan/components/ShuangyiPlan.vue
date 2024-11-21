@@ -13,7 +13,7 @@ import SearchBox from './SearchBox.vue'
 import DataTable from './DataTable.vue'
 import Pagination from '../../../components/Pagination.vue'
 import DrawerForm from './DrawerForm.vue'
-import { getStaminaPlans, addStaminaPlan, editStaminaPlan, deleteStaminaPlan } from '@/api';
+import { getShuangyiPlans, addShuangyiPlan, editShuangyiPlan, deleteShuangyiPlan } from '@/api';
 import { ElMessage } from 'element-plus'
 
 
@@ -36,16 +36,16 @@ const form = ref({})
 
 const isEdit = ref(false)
 onMounted(() => {
-    fetchStaminaPlans()
+    fetchShuangyiPlans()
 })
 const handleSearch = async (params) => {
-    fetchStaminaPlans()
+    fetchShuangyiPlans()
 }
 
-const fetchStaminaPlans = async () => {
+const fetchShuangyiPlans = async () => {
     try {
         loading.value = true
-        const resp = await getStaminaPlans({
+        const resp = await getShuangyiPlans({
             page: pagination.value.currentPage,
             per_page: pagination.value.pageSize,
             ...queryParams.value
@@ -60,11 +60,11 @@ const fetchStaminaPlans = async () => {
 }
 
 const handlePageChange = async (page) => {
-    fetchStaminaPlans()
+    fetchShuangyiPlans()
 }
 
 const handleSizeChange = async (size) => {
-    fetchStaminaPlans()
+    fetchShuangyiPlans()
 }
 
 const openAddDrawer = () => {
@@ -86,12 +86,12 @@ const handleCloseDrawer = () => {
 const handleSubmit = async () => {
     try {
         if (isEdit.value) {
-            await editStaminaPlan(form.value.id, form.value)
+            await editShuangyiPlan(form.value.id, form.value)
         } else {
-            await addStaminaPlan(form.value)
+            await addShuangyiPlan(form.value)
         }
         ElMessage.success('提交成功')
-        fetchStaminaPlans()
+        fetchShuangyiPlans()
         handleCloseDrawer()
     } catch (error) {
         console.error('提交失败', error)
@@ -101,9 +101,9 @@ const handleSubmit = async () => {
 
 const handleDelete = async (row) => {
     try {
-        await deleteStaminaPlan(row.id)
+        await deleteShuangyiPlan(row.id)
         ElMessage.success('成功')
-        fetchStaminaPlans()
+        fetchShuangyiPlans()
     } catch (error) {
         console.error('删除失败', error)
         ElMessage.error('删除失败')

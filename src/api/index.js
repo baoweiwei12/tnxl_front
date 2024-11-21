@@ -231,7 +231,9 @@ export const getStaminaPlans = (params) => apiClient.get("/v1/stamin_plans", { p
 export const editStaminaPlan = (id, data) => apiClient.put(`/v1/stamin_plans/${id}`, data)
 export const addStaminaPlan = (data) => apiClient.post("/v1/stamin_plans", data)
 export const deleteStaminaPlan = (id) => apiClient.delete(`/v1/stamin_plans/${id}`)
+export const getStaminaStats = (params) => apiClient.get("/v1/stamin_plans/stats", { params })
 
+export const getStaminaStatsByDate = (params) => apiClient.get("/v1/stamin_plans/stats_by_date", { params })
 
 export const getSubjects = (params) => apiClient.post("/v1/subjects/search", params)
 
@@ -240,3 +242,19 @@ export const editSubject = (id, data) => apiClient.put(`/v1/subjects/${id}`, dat
 export const deleteSubject = (id) => apiClient.delete(`/v1/subjects/${id}`)
 
 export const addSubject = (data) => apiClient.post("/v1/subjects", data)
+
+export const getMajorPlans = (params) => apiClient.get("/v1/major_plans", { params })
+export const editMajorPlan = (id, data) => apiClient.put(`/v1/major_plans/${id}`, data)
+export const addMajorPlan = (data) => apiClient.post("/v1/major_plans", data)
+export const deleteMajorPlan = (id) => apiClient.delete(`/v1/major_plans/${id}`)
+export const getMajorStats = (params) => apiClient.get("/v1/major_plans/stats", { params })
+
+export const getMajorStatsByDate = (params) => apiClient.get("/v1/major_plans/stats_by_date", { params })
+
+export const getShuangyiPlans = (params) => apiClient.get("/v1/shuangyi_plans", { params })
+export const editShuangyiPlan = (id, data) => apiClient.put(`/v1/shuangyi_plans/${id}`, data)
+export const addShuangyiPlan = (data) => apiClient.post("/v1/shuangyi_plans", data)
+export const deleteShuangyiPlan = (id) => apiClient.delete(`/v1/shuangyi_plans/${id}`)
+export const getShuangyiStats = (params) => apiClient.get("/v1/shuangyi_plans/stats", { params })
+
+export const getShuangyiStatsByDate = (params) => apiClient.get("/v1/shuangyi_plans/stats_by_date", { params })

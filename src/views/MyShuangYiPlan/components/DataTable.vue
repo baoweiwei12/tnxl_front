@@ -1,14 +1,10 @@
 <template>
-    <BaseTable :data="data" :loading="isLoading" :columns="columns" :actionSlot="true">
+    <BaseTable :data="data" :loading="isLoading" :columns="columns">
 
         <template #full_name="{ scope }">
             <strong>{{ scope.row.full_name }}</strong>
         </template>
 
-        <template #actions="{ scope }">
-            <el-button size="mini" @click="editRow(scope.row)">编辑</el-button>
-            <el-button size="mini" type="danger" @click="deleteRow(scope.row)">删除</el-button>
-        </template>
     </BaseTable>
 </template>
 
@@ -32,7 +28,7 @@ const columns = [
     { label: '姓名', prop: 'full_name', slot: 'full_name' },
     { label: '日期', prop: 'date' },
     { label: '科目', prop: 'subject' },
-    { label: '时间', prop: 'time' },
+    // { label: '时间', prop: 'time' },
     { label: '类型', prop: 'training_or_examination' },
     { label: '计划组数', prop: 'plan_time' },
     { label: '实际组数', prop: 'actual_time' },

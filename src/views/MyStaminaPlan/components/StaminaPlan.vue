@@ -15,10 +15,9 @@ import Pagination from '../../../components/Pagination.vue'
 import DrawerForm from './DrawerForm.vue'
 import { getStaminaPlans, addStaminaPlan, editStaminaPlan, deleteStaminaPlan } from '@/api';
 import { ElMessage } from 'element-plus'
-
-
+import { userStorage } from '@/storage'
+const user = userStorage.get()
 const queryParams = ref({
-    full_name: null,
     start_date: null,
     end_date: null
 })
@@ -48,6 +47,7 @@ const fetchStaminaPlans = async () => {
         const resp = await getStaminaPlans({
             page: pagination.value.currentPage,
             per_page: pagination.value.pageSize,
+            user_id: user.id,
             ...queryParams.value
         })
         data.value = resp.data.data

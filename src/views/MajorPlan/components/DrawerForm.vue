@@ -19,11 +19,11 @@
                     <el-option v-for="item in subjectOptions" :key="item.id" :label="item.name" :value="item.name" />
                 </el-select>
             </el-form-item>
-            <el-form-item label="时间" prop="time">
+            <!-- <el-form-item label="时间" prop="time">
                 <el-select v-model="props.form.time" placeholder="请选择时间">
                     <el-option v-for="item in ['午训练', '晚训练']" :key="item" :label="item" :value="item" />
                 </el-select>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="类型" prop="training_or_examination">
                 <el-select v-model="props.form.training_or_examination" placeholder="类型">
                     <el-option v-for="item in ['训练', '考试']" :key="item" :label="item" :value="item" />
@@ -88,7 +88,7 @@ const handleSubmit = () => {
 const subjectOptions = ref([])
 
 const handleSubjectSelect = async () => {
-    subjectOptions.value = (await getSubjects({ belong_to: '体能' })).data
+    subjectOptions.value = (await getSubjects({ belong_to: '专业' })).data
 }
 
 const handleSubjectChange = (val) => {

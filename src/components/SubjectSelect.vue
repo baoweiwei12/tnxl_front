@@ -1,16 +1,16 @@
 <template>
-    <el-select v-model="props.name" filterable remote reserve-keyword placeholder="输入科目名查询"
-        :remote-method="remoteMethod" :loading="loading">
-        <el-option v-for="subject in subjetcs" :key="subject.id" :label="`${subject.name}`" :value="subject" />
+    <el-select v-model="props.subject" placeholder="请选择科目" @click="handleSubjectSelect" @change="handleSubjectChange"
+        filterable clearable>
+        <el-option v-for="item in subjectOptions" :key="item.id" :label="item.name" :value="item.name" />
     </el-select>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { getSubjects } from '@/api'
 const props = defineProps({
-    name: {
-        type: str,
+    subject: {
+        type: String,
         default: null
     },
     t_or_e: {
@@ -23,13 +23,15 @@ const props = defineProps({
     }
 })
 
-const subjetcs = ref([]);
-const loading = ref(false);
-const remoteMethod = async (name) => {
-    loading.value = true;
-    const res = await getSubjects({ name, props.t_or_e, props.belong_to });
-    subjetcs.value = res.data;
-    loading.value = false;
+const subjectOptions = ref([])
+const handleSubjectSelect = async () => {
+    subjectOptions.value = (await getSubjects({ belong_to: props.belong_to })).data
+}
+
+const emit = defineEmits(['update:subject'])
+
+const handleSubjectChange = (value) => {
+    emit('update:subject', value)
 }
 
 </script>

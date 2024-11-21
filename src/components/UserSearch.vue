@@ -1,6 +1,6 @@
 <template>
     <el-select v-model="selectedUserId" filterable remote reserve-keyword placeholder="输入姓名查询"
-        :remote-method="remoteMethod" :loading="loading" @change="handleUserChange">
+        :remote-method="remoteMethod" :loading="loading" @change="handleUserChange" clearable>
         <el-option v-for="user in users" :key="user.id" :label="user.full_name" :value="user.id" />
     </el-select>
 </template>
