@@ -7,6 +7,8 @@
             </el-select>
         </el-form-item>
 
+
+
         <el-form-item label="体型" prop="body_type">
             <el-input v-model="form.body_type" placeholder="请输入体型" />
         </el-form-item>

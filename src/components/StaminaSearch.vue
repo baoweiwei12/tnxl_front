@@ -14,6 +14,7 @@ const emit = defineEmits(['submit']);
 
 // 创建表单的状态
 const queryParams = reactive({
+    keyword: props.initialQueryParams.keyword || null,
     is_pass_body_type: props.initialQueryParams.is_pass_body_type || null,
     is_pass_three_km: props.initialQueryParams.is_pass_three_km || null,
     is_pass_horizontal_bar: props.initialQueryParams.is_pass_horizontal_bar || null,
@@ -33,6 +34,9 @@ function submitForm() {
 
 <template>
     <el-form :model="queryParams" label-width="auto" ref="fromRef" label-position="left">
+        <el-form-item label="姓名">
+            <el-input v-model="queryParams.keyword" placeholder="请输入姓名关键字" clearable />
+        </el-form-item>
         <el-form-item label="是否通过体型测试">
             <el-select v-model="queryParams.is_pass_body_type" placeholder="请选择" clearable>
                 <el-option label="是" :value="true"></el-option>
