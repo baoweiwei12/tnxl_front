@@ -1,12 +1,18 @@
 <template>
-    <StaminaInfo v-if="staminaInfoData" :fitness-data="staminaInfoData" />
-    <div v-else>暂无体能信息</div>
-    <el-divider />
-    <MajorInfo v-if="majorInfoData" :training-data="majorInfoData" />
-    <div v-else>暂无专业信息</div>
-    <el-divider />
-    <ShuangYiInfo v-if="shuangYiInfoData" :professional-data="shuangYiInfoData" />
-    <div v-else>暂无双一信息</div>
+    <el-card>
+        <StaminaInfo v-if="staminaInfoData" :fitness-data="staminaInfoData" />
+        <div v-else>暂无体能信息</div>
+    </el-card>
+        <el-divider />
+    <el-card>
+        <MajorInfo v-if="majorInfoData" :training-data="majorInfoData" />
+        <div v-else>暂无专业信息</div>
+    </el-card>
+        <el-divider />
+    <el-card>
+        <ShuangYiInfo v-if="shuangYiInfoData" :professional-data="shuangYiInfoData" />
+        <div v-else>暂无双一信息</div>
+    </el-card>
 </template>
 <script setup>
 import StaminaInfo from './components/StaminaInfo.vue';

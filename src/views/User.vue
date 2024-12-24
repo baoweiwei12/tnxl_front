@@ -120,9 +120,9 @@ const handleSizeChange = async (size) => {
         <UserForm :initial-data="currentUser" @submit="handleEditSubmit"></UserForm>
     </el-dialog>
 
-
-    <div class="search-box">
-        <el-input v-model="queryParams.username" placeholder="用户名" style="width: 120px"></el-input>
+    <el-card style="margin-bottom: 10px;">
+        <div class="search-box">
+            <el-input v-model="queryParams.username" placeholder="用户名" style="width: 120px"></el-input>
         <el-input v-model="queryParams.full_name" placeholder="姓名" style="width: 120px"></el-input>
         <el-input v-model="queryParams.skill_level" placeholder="等级" style="width: 120px"></el-input>
         <el-input v-model="queryParams.level" placeholder="技能等级" style="width: 120px"></el-input>
@@ -139,8 +139,9 @@ const handleSizeChange = async (size) => {
         <el-button @click="handleSearch">搜索用户</el-button>
         <el-button @click="handleCreateUser" style="margin-left: 0px;">新建用户</el-button>
 
-    </div>
-
+        </div>
+    </el-card>
+    <el-card>
     <el-table v-loading="tableLoading" :data="userData" style="width: 100%" size="small" border>
         <el-table-column prop="username" label="用户名" width="120" />
         <el-table-column label="角色" width="120">
@@ -187,7 +188,8 @@ const handleSizeChange = async (size) => {
     <el-pagination size="small" style="margin-top: 10px;" v-if="total > 0" :current-page="pagination.currentPage"
         :page-size="pagination.pageSize" :total="total" @current-change="handlePageChange"
         layout="total, prev, pager, next, jumper, sizes" :page-sizes="pagination.pageSizes"
-        @size-change="handleSizeChange" />
+            @size-change="handleSizeChange" />
+    </el-card>
 
 
 </template>
@@ -195,7 +197,6 @@ const handleSizeChange = async (size) => {
 .search-box {
     display: flex;
     gap: 10px;
-    margin-bottom: 10px;
 
 }
 </style>

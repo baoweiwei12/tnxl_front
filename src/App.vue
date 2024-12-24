@@ -5,7 +5,7 @@
 <script setup>
 import { computed } from 'vue';
 import MainLayout from './views/MainLayout.vue';
-import LoginView from './views/Login.vue';
+import LoginView from './views/Login/index.vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
