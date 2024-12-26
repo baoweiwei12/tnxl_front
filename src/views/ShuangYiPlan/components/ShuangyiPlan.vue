@@ -11,7 +11,7 @@
 import { ref, onMounted } from 'vue'
 import SearchBox from './SearchBox.vue'
 import DataTable from './DataTable.vue'
-import Pagination from '../../../components/Pagination.vue'
+import Pagination from '../../../components/PaginationV1.vue'
 import DrawerForm from './DrawerForm.vue'
 import { getShuangyiPlans, addShuangyiPlan, editShuangyiPlan, deleteShuangyiPlan } from '@/api';
 import { ElMessage } from 'element-plus'

@@ -6,29 +6,31 @@
     <el-dialog title="修改专业信息" v-model="editShuangYiDialogVisible">
         <ShuangYiForm is-edit="true" :initial-data="editData" @submit="handleEditSubmit"></ShuangYiForm>
     </el-dialog>
+    <el-card shadow="always" :body-style="{ padding: '20px' }" style="margin-bottom: 10px;">
+        <div>
+            <el-input v-model="searchFullName" placeholder="搜索姓名" style="width: 150px;margin-right: 10px;"
+                clearable></el-input>
+            <el-select v-model="searchMajorList" multiple collapse-tags placeholder="选择已掌握专业"
+                style="width: 240px;margin-right: 10px;" clearable>
+                <el-option v-for="option in options" :key="option" :label="option" :value="option" />
+            </el-select>
+            <el-select v-model="searchLevel" placeholder="请选择水平" style="width: 150px;margin-right: 10px;" clearable>
+                <el-option v-for="(item, index) in levelLbale" :key="index" :label="item" :value="index">
+                </el-option>
+            </el-select>
+            <el-button @click="fetchShuangYiInfo">搜索</el-button>
+            <el-button @click="addShuangYiDialogVisible = true">录入双一信息</el-button>
+        </div>
+    </el-card>
+    <el-card shadow="always" :body-style="{ padding: '20px' }">
+        <ShuangYiTable :data="data" :loading="loading" @edit="handleEdit"></ShuangYiTable>
+        <el-pagination size="small" style="margin-top: 10px;" v-if="total > 0" :current-page="pagination.currentPage"
+            :page-size="pagination.pageSize" :total="total" @current-change="handlePageChange"
+            layout="total, prev, pager, next, jumper, sizes" :page-sizes="pagination.pageSizes"
+            @size-change="handleSizeChange" />
+    </el-card>
 
-    <div style="margin-bottom: 10px;">
-        <el-input v-model="searchFullName" placeholder="搜索姓名" style="width: 150px;margin-right: 10px;"
-            clearable></el-input>
-        <el-select v-model="searchMajorList" multiple collapse-tags placeholder="选择已掌握专业"
-            style="width: 240px;margin-right: 10px;" clearable>
-            <el-option v-for="option in options" :key="option" :label="option" :value="option" />
-        </el-select>
-        <el-select v-model="searchLevel" placeholder="请选择水平" style="width: 150px;margin-right: 10px;" clearable>
-            <el-option v-for="(item, index) in levelLbale" :key="index" :label="item" :value="index">
-            </el-option>
-        </el-select>
-        <el-button @click="fetchShuangYiInfo">搜索</el-button>
-        <el-button @click="addShuangYiDialogVisible = true">录入双一信息</el-button>
-    </div>
 
-
-    <ShuangYiTable :data="data" :loading="loading" @edit="handleEdit"></ShuangYiTable>
-
-    <el-pagination size="small" style="margin-top: 10px;" v-if="total > 0" :current-page="pagination.currentPage"
-        :page-size="pagination.pageSize" :total="total" @current-change="handlePageChange"
-        layout="total, prev, pager, next, jumper, sizes" :page-sizes="pagination.pageSizes"
-        @size-change="handleSizeChange" />
 </template>
 <script setup>
 import { ref, onMounted } from 'vue'

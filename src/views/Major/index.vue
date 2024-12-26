@@ -5,22 +5,29 @@
     <el-dialog title="修改专业信息" v-model="editMajorDialogVisible">
         <MajorForm is-edit="true" :initial-data="editData" @submit="handleEditSubmit"></MajorForm>
     </el-dialog>
-    <div class="header">
-        <el-input v-model="queryFullName" placeholder="输入姓名搜索" style="width: 150px; margin-right: 10px;"></el-input>
-        <el-select v-model="queryLevel" placeholder="请选择专业等级" clearable style="width: 150px; margin-right: 10px;">
-            <el-option label="未出班" value="0"></el-option>
-            <el-option label="可以上岗" value="1"></el-option>
-            <el-option label="一号班" value="2"></el-option>
-        </el-select>
-        <el-button @click="fetchMajorInfo">搜索</el-button>
-        <el-button @click="addMajorDialogVisible = true">录入专业信息</el-button>
-    </div>
+    <el-card shadow="always" :body-style="{ padding: '20px' }" style="margin-bottom: 10px;">
+        <div class="header">
+            <el-input v-model="queryFullName" placeholder="输入姓名搜索" style="width: 150px; margin-right: 10px;"></el-input>
+            <el-select v-model="queryLevel" placeholder="请选择专业等级" clearable style="width: 150px; margin-right: 10px;">
+                <el-option label="未出班" value="0"></el-option>
+                <el-option label="可以上岗" value="1"></el-option>
+                <el-option label="一号班" value="2"></el-option>
+            </el-select>
+            <el-button @click="fetchMajorInfo">搜索</el-button>
+            <el-button @click="addMajorDialogVisible = true">录入专业信息</el-button>
+        </div>
+    </el-card>
+    <el-card shadow="always" :body-style="{ padding: '20px' }">
 
-    <MajorTable :data="data" :loading="loading" @edit="handleEdit"></MajorTable>
-    <el-pagination size="small" style="margin-top: 10px;" v-if="total > 0" :current-page="pagination.currentPage"
-        :page-size="pagination.pageSize" :total="total" @current-change="handlePageChange"
-        layout="total, prev, pager, next, jumper, sizes" :page-sizes="pagination.pageSizes"
-        @size-change="handleSizeChange" />
+        <MajorTable :data="data" :loading="loading" @edit="handleEdit"></MajorTable>
+        <el-pagination size="small" style="margin-top: 10px;" v-if="total > 0" :current-page="pagination.currentPage"
+            :page-size="pagination.pageSize" :total="total" @current-change="handlePageChange"
+            layout="total, prev, pager, next, jumper, sizes" :page-sizes="pagination.pageSizes"
+            @size-change="handleSizeChange" />
+    </el-card>
+
+
+
 </template>
 <script setup>
 import MajorForm from '@/components/MajorForm.vue';
@@ -115,6 +122,5 @@ const handleEditSubmit = async (data) => {
 <style scoped>
 .header {
     display: flex;
-    margin-bottom: 10px;
 }
 </style>

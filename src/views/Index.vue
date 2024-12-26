@@ -3,21 +3,38 @@
         <!-- 侧边栏 -->
         <div class="sidebar" :class="{ 'sidebar-collapse': isCollapse }">
             <div class="logo-container">
-                <img src="@/assets/logo.png" alt="Logo" class="logo-image">
+                <img src="@/assets/logo.png" alt="Logo" class="logo-image" />
                 <span class="logo-text" v-show="!isCollapse">{{ systemName }}</span>
             </div>
 
-            <el-menu :default-active="currentPath" class="sidebar-menu" :collapse="isCollapse"
+            <el-menu :default-active="currentPath" class="sidebar-menu" :collapse="isCollapse" popper-effect="dark"
                 @select="handleMenuSelect" :unique-opened="true" background-color="transparent" text-color="#fff"
                 active-text-color="#409EFF">
-                <el-menu-item v-for="item in filteredMenu" :key="item.path" :index="item.path">
-                    <el-icon>
-                        <component :is="item.meta.icon" />
-                    </el-icon>
-                    <template #title>
-                        <span>{{ item.meta.text }}</span>
-                    </template>
-                </el-menu-item>
+                <template v-for="item in filteredMenu" :key="item.path">
+                    <el-sub-menu v-if="item.children && item.children.length" :index="item.path">
+                        <template #title>
+                            <el-icon>
+                                <component :is="item.meta.icon" />
+                            </el-icon>
+                            <span>{{ item.meta.text }}</span>
+                        </template>
+                        <el-menu-item v-for="child in item.children" :key="child.path"
+                            :index="`${item.path}/${child.path}`">
+                            <el-icon>
+                                <component :is="child.meta.icon" />
+                            </el-icon>
+                            <template #title>{{ child.meta.text }}</template>
+                        </el-menu-item>
+                    </el-sub-menu>
+                    <el-menu-item v-else :index="item.path">
+                        <el-icon>
+                            <component :is="item.meta.icon" />
+                        </el-icon>
+                        <template #title>
+                            <span>{{ item.meta.text }}</span>
+                        </template>
+                    </el-menu-item>
+                </template>
             </el-menu>
         </div>
 
@@ -26,7 +43,7 @@
             <!-- 顶部导航栏 -->
             <div class="navbar">
                 <div class="navbar-left">
-                    <el-icon class="collapse-icon" @click="toggleSidebar" :class="{ 'is-active': isCollapse }">
+                    <el-icon class="collapse-icon" @click="toggleSidebar">
                         <Fold v-if="!isCollapse" />
                         <Expand v-else />
                     </el-icon>
@@ -67,21 +84,31 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { UserFilled, SwitchButton } from '@element-plus/icons-vue';
+import { UserFilled, SwitchButton, Fold, Expand } from '@element-plus/icons-vue';
 import { userStorage, clearStorage } from "@/storage";
 import { ElMessageBox } from 'element-plus';
 import Breadcrumb from "@/components/Breadcrumb.vue";
+import { cloneDeep } from 'lodash-es';
+
 const systemName = process.env.VUE_APP_SYSTEM_NAME;
 
 // 组件引用
 const route = useRoute();
 const router = useRouter();
 const currentPath = ref(route.path);
-const menu = ref(router.getRoutes());
+const menu = ref(cloneDeep(router.getRoutes()));
 const userMe = ref({});
 const isCollapse = ref(false);
+
+// 监听路由变化，更新 currentPath
+watch(
+    () => route.path,
+    (newPath) => {
+        currentPath.value = newPath;
+    }
+);
 
 // 计算菜单项
 const filteredMenu = computed(() => {
@@ -89,9 +116,23 @@ const filteredMenu = computed(() => {
         router.push("/login");
         return [];
     }
-    return menu.value.filter((item) =>
-        item.meta?.show === true && item.meta?.role.includes(userMe.value.role)
-    );
+
+    return menu.value
+        .map((item) => {
+            const pathParts = item.path.replace(/^\/|\/$/g, '').split('/');
+            const isFirstLevel = pathParts.length <= 1;
+
+            if (isFirstLevel && item.meta?.show === true && item.meta?.role.includes(userMe.value.role)) {
+                return {
+                    ...item,
+                    children: item.children?.filter(
+                        (child) => child.meta?.show === true && child.meta?.role.includes(userMe.value.role)
+                    ) || []
+                };
+            }
+            return null;
+        })
+        .filter(Boolean); // 移除空值
 });
 
 // 方法定义
@@ -116,9 +157,11 @@ const handleLogout = () => {
 
 // 生命周期钩子
 onMounted(() => {
-    userMe.value = userStorage.get();
-    if (userMe.value === null) {
+    const userData = userStorage.get();
+    if (!userData) {
         router.push("/login");
+    } else {
+        userMe.value = userData;
     }
 });
 </script>
@@ -148,6 +191,7 @@ onMounted(() => {
     height: 60px;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 10px;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.1);
@@ -156,10 +200,11 @@ onMounted(() => {
 .logo-image {
     width: 32px;
     height: 32px;
-    margin-right: 12px;
+
 }
 
 .logo-text {
+    margin-left: 12px;
     color: #fff;
     font-size: 16px;
     font-weight: 600;
@@ -249,5 +294,22 @@ onMounted(() => {
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+:deep(.el-sub-menu .el-menu-item) {
+    min-width: unset;
+    background-color: #1f2d3d;
+}
+
+:deep(.el-sub-menu .el-menu-item:hover) {
+    background-color: #263445;
+}
+
+:deep(.el-sub-menu__title) {
+    border-left: 3px solid transparent;
+}
+
+:deep(.el-sub-menu__title:hover) {
+    background-color: #263445;
 }
 </style>

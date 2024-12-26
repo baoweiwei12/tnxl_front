@@ -9,16 +9,21 @@
     <el-dialog v-model="editStaminaDialogVisible" title="体能信息修改" width="50%" align-center>
         <StaminaForm :initial-data="editStaminaData" :is-edit="true" @submit="handleEditSubmit"></StaminaForm>
     </el-dialog>
+    <el-card style="margin-bottom: 10px;">        
+        <div class="header">
+            <el-button @click="showSearchParams = true">筛选</el-button>
+            <el-button @click="addStaminaDialogVisible = true">录入体能信息</el-button>
+        </div> 
+    </el-card>
 
-    <div class="header">
-        <el-button @click="showSearchParams = true">筛选</el-button>
-        <el-button @click="addStaminaDialogVisible = true">录入体能信息</el-button>
-    </div>
-    <StaminaTable :data="staminaInfoData" :loading="tableLoading" @edit="handleEdit" />
-    <el-pagination size="small" style="margin-top: 10px;" v-if="total > 0" :current-page="pagination.currentPage"
+    <el-card>    
+        <StaminaTable :data="staminaInfoData" :loading="tableLoading" @edit="handleEdit" />
+        <el-pagination size="small" style="margin-top: 10px;" v-if="total > 0" :current-page="pagination.currentPage"
         :page-size="pagination.pageSize" :total="total" @current-change="handlePageChange"
         layout="total, prev, pager, next, jumper, sizes" :page-sizes="pagination.pageSizes"
-        @size-change="handleSizeChange" />
+        @size-change="handleSizeChange" /> 
+    </el-card>
+
 </template>
 <script setup>
 import { ref, onMounted } from 'vue'
@@ -115,6 +120,5 @@ onMounted(() => {
 <style scoped>
 .header {
     display: flex;
-    margin-bottom: 10px;
 }
 </style>

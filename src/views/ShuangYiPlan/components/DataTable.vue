@@ -15,7 +15,7 @@
 <script setup>
 import { ref } from 'vue'
 import BaseTable from '@/components/BaseTable.vue';
-import Pagination from '@/components/Pagination.vue';
+import Pagination from '@/components/PaginationV1.vue';
 
 const props = defineProps({
     data: {

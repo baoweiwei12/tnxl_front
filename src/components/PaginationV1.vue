@@ -22,12 +22,10 @@ const props = defineProps({
 })
 
 const handlePageChange = (page) => {
-    props.pagination.currentPage = page
     emit('page-change', page)
 }
 
 const handleSizeChange = (size) => {
-    props.pagination.pageSize = size
     emit('size-change', size)
 }
 </script>
