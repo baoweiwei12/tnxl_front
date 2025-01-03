@@ -8,22 +8,22 @@
             </div>
 
             <el-menu :default-active="currentPath" class="sidebar-menu" :collapse="isCollapse" popper-effect="dark"
-                @select="handleMenuSelect" :unique-opened="true" background-color="transparent" text-color="#fff"
-                active-text-color="#409EFF">
+                @select="handleMenuSelect" :unique-opened="false" background-color="transparent"
+                :text-color="isCollapse ? '#667eea' : '#fff'" active-text-color="#409EFF">
                 <template v-for="item in filteredMenu" :key="item.path">
                     <el-sub-menu v-if="item.children && item.children.length" :index="item.path">
                         <template #title>
                             <el-icon>
                                 <component :is="item.meta.icon" />
                             </el-icon>
-                            <span>{{ item.meta.text }}</span>
+                            <span>{{ item.name }}</span>
                         </template>
                         <el-menu-item v-for="child in item.children" :key="child.path"
                             :index="`${item.path}/${child.path}`">
                             <el-icon>
                                 <component :is="child.meta.icon" />
                             </el-icon>
-                            <template #title>{{ child.meta.text }}</template>
+                            <template #title>{{ child.name }}</template>
                         </el-menu-item>
                     </el-sub-menu>
                     <el-menu-item v-else :index="item.path">
@@ -31,7 +31,7 @@
                             <component :is="item.meta.icon" />
                         </el-icon>
                         <template #title>
-                            <span>{{ item.meta.text }}</span>
+                            <span>{{ item.name }}</span>
                         </template>
                     </el-menu-item>
                 </template>
@@ -206,7 +206,7 @@ onMounted(() => {
 .logo-text {
     margin-left: 12px;
     color: #fff;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     white-space: nowrap;
     opacity: 1;
@@ -218,6 +218,7 @@ onMounted(() => {
     background-color: transparent;
 }
 
+
 .main-container {
     flex: 1;
     display: flex;
@@ -227,7 +228,7 @@ onMounted(() => {
 
 .navbar {
     height: 60px;
-    background: rgba(245, 245, 245);
+    background: linear-gradient(90deg, rgba(236, 245, 255, 1) 0%, rgba(245, 245, 245, 1) 100%);
     box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
     display: flex;
     align-items: center;
@@ -311,5 +312,14 @@ onMounted(() => {
 
 :deep(.el-sub-menu__title:hover) {
     background-color: #263445;
+}
+
+:deep(.el-menu .el-menu--popup .el-menu--popup-right-start) {
+    --el-menu-text-color: #fff;
+    --el-menu-hover-text-color: #fff;
+    --el-menu-bg-color: #304156 !important;
+    --el-menu-hover-bg-color: rgba(0, 0, 0, 0.2);
+    --el-menu-active-color: #409EFF;
+    --el-menu-level: 1;
 }
 </style>

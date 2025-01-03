@@ -5,37 +5,32 @@
                 <el-tag type="success" size="normal">{{ props.question.subject_name }}</el-tag>
                 <el-tag :type="getType(props.question.type).type" size="normal">{{ getType(props.question.type).text
                     }}</el-tag>
-                <el-button :icon="Edit" text bg style="margin-left: auto;" type="primary" size="small"
-                    @click="handleEdit">编辑</el-button>
-                <el-button :icon="Delete" text bg style="margin-left: 0px;" type="danger" size="small"
-                    @click="handleDelete">删除</el-button>
+                <el-button type="primary" size="small" @click="handleSubmitAnswer"
+                    style="margin-left: auto;">提交答案</el-button>
             </div>
         </template>
-        <p class="content">【问题】{{ props.question.content }}</p>
+        <p class="content">{{ props.question.content }}</p>
         <div class="image-box">
             <el-image v-for="(image, index) in props.question.images" :key="index" :src="image" class="image"
                 fit="cover" :preview-src-list="props.question.images"></el-image>
         </div>
         <div class="options">
-            <el-radio-group v-if="props.question.type === 'single_choice' || props.question.type === 'true_false'">
-                <el-radio v-for="option in props.question.options" :key="option.key" :label="option.key">
-                    {{ option.key }}. {{ option.value }}
-                </el-radio>
-            </el-radio-group>
-            <el-checkbox-group v-else-if="props.question.type === 'multiple_choice'">
-                <el-checkbox v-for="option in props.question.options" :key="option.key" :label="option.key">
+            <el-checkbox-group v-model="props.question.user_answer"
+                :max="props.question.type === 'multiple_choice' ? 100 : 1">
+                <el-checkbox v-for="option in props.question.options" :key="option.key" :label="option.key"
+                    :value="option.key">
                     {{ option.key }}. {{ option.value }}
                 </el-checkbox>
             </el-checkbox-group>
         </div>
 
-        <p class="answer-text">【正确答案】{{ displayAnswer }}</p>
     </el-card>
 </template>
 
 <script setup>
 import { computed } from 'vue';
-import { Delete, Edit } from '@element-plus/icons-vue'
+import { arraysEqual } from '@/utils/index.js';
+import { ElMessage } from 'element-plus';
 
 
 const props = defineProps({
@@ -55,7 +50,9 @@ const props = defineProps({
             created_at: "2024-12-26T14:11:26",
             updated_at: "2024-12-26T14:15:10",
             is_deleted: false,
-            subject_name: "测试问答科2"
+            subject_name: "测试问答科2",
+            user_answer: [],
+            detail_id: 0
         })
     }
 })
@@ -79,18 +76,17 @@ const getType = (type) => {
             }
     }
 }
-
-// 添加计算属性，将答案数组转换为用逗号分隔的字符串
-const displayAnswer = computed(() => props.question.type === 'multiple_choice' ? props.question.answer.join(',') : props.question.answer);
-
-const emits = defineEmits(['edit', 'delete'])
-
-const handleEdit = () => {
-    emits('edit', props.question)
-}
-
-const handleDelete = () => {
-    emits('delete', props.question)
+const emits = defineEmits(['submitAnswer']);
+const handleSubmitAnswer = async () => {
+    console.log(props.question.user_answer)
+    const isCorrect = arraysEqual(props.question.answer, props.question.user_answer);
+    console.log(isCorrect)
+    if (isCorrect) {
+        ElMessage.success("回答正确");
+    } else {
+        ElMessage.error("回答错误");
+    }
+    emits('submitAnswer', { ...props.question, is_correct: isCorrect });
 }
 </script>
 

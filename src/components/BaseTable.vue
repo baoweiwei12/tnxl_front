@@ -36,7 +36,6 @@
 <script setup>
 import { dateTimeFormat } from '@/utils';
 import { Picture } from '@element-plus/icons-vue';
-import _ from 'lodash';
 
 const props = defineProps({
     data: {

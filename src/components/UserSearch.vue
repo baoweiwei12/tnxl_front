@@ -29,13 +29,12 @@ const selectedUserId = ref(props.user_id);
 
 // 搜索用户方法
 const remoteMethod = async (keyword) => {
+
     loading.value = true;
-    try {
-        const res = await searchUsers(keyword);
-        users.value = res.data;
-    } finally {
-        loading.value = false;
-    }
+    const res = await searchUsers(keyword);
+    users.value = res.data;
+    loading.value = false;
+
 }
 
 // 当选中用户时触发事件

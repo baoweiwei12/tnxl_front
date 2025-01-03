@@ -106,7 +106,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps, watch, defineEmits } from 'vue';
+import { ref, watch } from 'vue';
 import { searchUsers } from '@/api';
 
 const users = ref([]);

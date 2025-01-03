@@ -11,16 +11,11 @@
                         </el-icon>
                     </template>
                 </el-input>
-                <el-button type="primary" @click="handleSearch">
-                    <el-icon>
-                        <Search />
-                    </el-icon>
+                <el-button type="primary" @click="handleSearch" :icon="Search">
+
                     搜索
                 </el-button>
-                <el-button type="primary" @click="handleAdd" style="margin-left: 0px;">
-                    <el-icon>
-                        <Plus />
-                    </el-icon>
+                <el-button type="primary" @click="handleAdd" style="margin-left: 0px;" :icon="Plus">
                     新增科目
                 </el-button>
             </div>
@@ -101,8 +96,9 @@ const formRules = {
 
 // 获取表格数据
 const fetchData = async () => {
-    loading.value = true
+
     try {
+        loading.value = true
         const { data } = await getStudySubjects(
             searchKeyword.value,
             pagination.currentPage,
@@ -110,11 +106,10 @@ const fetchData = async () => {
         )
         tableData.value = data.data
         total.value = data.total
+        loading.value = false
     } catch (error) {
         console.error('获取数据失败：', error)
         ElMessage.error('获取数据失败')
-    } finally {
-        loading.value = false
     }
 }
 

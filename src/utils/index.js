@@ -37,3 +37,32 @@ export const dateTimeFormat = (dateTimeString) => {
 export const makeUrl = (url) => {
     return process.env.VUE_APP_API_URL + url;
 };
+
+/**
+ * 检查两个数组是否相等
+ * 此函数通过比较两个数组的元素来确定它们是否相等它首先检查数组的长度，
+ * 如果长度不同，则数组不可能相等如果长度相同，它会排序两个数组并逐元素比较
+ * 
+ * @param {Array} arr1 第一个数组
+ * @param {Array} arr2 第二个数组
+ * @returns {boolean} 如果数组相等返回true，否则返回false
+ */
+export function arraysEqual(arr1, arr2) {
+    // 检查长度
+    if (arr1.length !== arr2.length) {
+        return false;
+    }
+
+    // 排序并比较
+    arr1 = arr1.slice().sort(); // 使用 slice() 避免修改原数组
+    arr2 = arr2.slice().sort(); // 使用 slice() 避免修改原数组
+
+    // 对比排序后的数组
+    for (let i = 0; i < arr1.length; i++) {
+        if (arr1[i] !== arr2[i]) {
+            return false;
+        }
+    }
+
+    return true;
+}
